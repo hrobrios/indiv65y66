@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>saludo</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    {%if form.errors %}
+    <h4>datos de autenticacion no corresponden, intentar nuevamente</h4>
+    {% endif %} 
+
+    {% if next %} 
+        {% if user.is_authenticated %} 
+        <h4>tu cuenta no tiene acceso</h4>
+        <p>debes contactar al administrador por privilegios</p>
+        {% else %} 
+        <p>deses autenticarte para acceder</p>
+        {% endif %} 
+    {% endif %} 
+    <form method="post" action="{% login %}">
+        {% csrf_token %} 
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="login">
+        <input type="hidden" name="next" value="{{next}}">
+
+    </form>        
+</body>
